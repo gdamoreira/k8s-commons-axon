@@ -1,0 +1,39 @@
+buildscript {
+  ext {
+    springBootVersion = '2.0.5.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = 'br.com.damoreira.commons'
+archivesBaseName = 'k8s-commons-axon'
+sourceCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+}
+
+publishing {
+  repositories {
+    mavenLocal()
+  }
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId = jar.baseName
+      from components.java
+    }
+  }
+}
+
+dependencies {
+  compileOnly("org.axonframework.extensions.mongo:axon-mongo:4.2")
+  compileOnly("org.axonframework:axon-spring-boot-starter:4.2")
+  compileOnly("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+  compileOnly("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+  compileOnly('org.projectlombok:lombok:1.18.10')
+}
